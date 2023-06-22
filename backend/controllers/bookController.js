@@ -1,12 +1,12 @@
 import asyncHandler from 'express-async-handler';
-import User from '../models/userModel.js';
+import Book from '../models/bookModel'
 import generateToken from '../utils/generateToken.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
 // @access  Public
-const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+const getBookByisbn = asyncHandler(async (req, res) => {
+  const { isbn} = req.body;
 
   const user = await User.findOne({ email });
 
@@ -14,7 +14,6 @@ const authUser = asyncHandler(async (req, res) => {
     generateToken(res, user._id);
 
     res.json({
-      msg:"user logged in",
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -48,7 +47,6 @@ const registerUser = asyncHandler(async (req, res) => {
     generateToken(res, user._id);
 
     res.status(201).json({
-    msg:"user created successfully",
       _id: user._id,
       name: user.name,
       email: user.email,
